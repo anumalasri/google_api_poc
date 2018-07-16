@@ -170,12 +170,15 @@ public class GoogleAPIController {
 		System.out.println(tokenResponse.getAccessToken());
 		System.out.println(tokenResponse.getRefreshToken());
 
-
+		ClassPathResource resource = new ClassPathResource("client_secret.json");
+		InputStream in = resource.getInputStream();
+		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+		
 	    // Create the OAuth2 credential.
 	    credential = new GoogleCredential.Builder()
 	        .setTransport(httpTransport)
 	        .setJsonFactory(JSON_FACTORY)
-	        .setClientSecrets(clientId, clientSecret) 
+	        .setClientSecrets(clientSecrets) 
 	        .build();
 
 	    // Set authorized credentials.
